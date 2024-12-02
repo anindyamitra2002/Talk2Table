@@ -75,10 +75,10 @@ def safe_get_similar_questions(vn, prompt, sql, results_df):
         return []
 
 def main():
-    # Perform one-time database cleanup
-    if 'databases_cleared' not in st.session_state:
-        clear_existing_databases()
-        st.session_state.databases_cleared = True
+    # # Perform one-time database cleanup
+    # if 'databases_cleared' not in st.session_state:
+    #     clear_existing_databases()
+    #     st.session_state.databases_cleared = True
 
     st.set_page_config(page_title="Talk2Table", layout="wide")
     st.title("🤖 Talk2Table")
