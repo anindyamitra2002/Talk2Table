@@ -1,0 +1,5 @@
+vanna
+streamlit 
+pandas 
+plotly
+vanna[chromadb,openai]
