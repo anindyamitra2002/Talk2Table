@@ -4,6 +4,7 @@
 **Talk2Table** is an intelligent Retrieval-Augmented Generation (RAG) system that allows users to interact with uploaded CSV data stored in an SQLite database. It uses OpenAI's GPT-based models for generating SQL queries and analyzing data, enabling users to ask natural language questions and receive comprehensive answers, including SQL queries, data tables, summaries, and visualizations.  
 
 With Talk2Table, you can effortlessly extract insights from your data without writing any SQL or complex scripts.  
+Demo: [Click Here to test my app](https://talk2table-by-anindyamitra.streamlit.app/)
 
 ---
 
