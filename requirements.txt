@@ -3,5 +3,4 @@ streamlit
 pandas 
 plotly
 vanna[chromadb,openai]
-pysqlite3
 pysqlite3-binary
