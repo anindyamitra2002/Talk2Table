@@ -176,8 +176,7 @@ def main():
                                 question=prompt, 
                                 print_results=False, 
                                 auto_train=True, 
-                                visualize=show_chart,
-                                allow_llm_to_see_data=True
+                                visualize=show_chart
                             )
                             
 
