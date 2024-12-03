@@ -158,6 +158,10 @@ def main():
     # Initialize or reset session state
     if 'messages' not in st.session_state:
         st.session_state.messages = []
+    
+    # Ensure these session state variables exist
+    if 'last_plot' not in st.session_state:
+        st.session_state.last_plot = None
 
     # CSV File Upload
     uploaded_file = st.file_uploader("Upload a CSV file", type=['csv'])
@@ -199,8 +203,8 @@ def main():
                     with st.chat_message(message["role"]):
                         st.markdown(message["content"])
                         
-                        # If the message has a plot, display it
-                        if message["role"] == "assistant" and 'plot' in message:
+                        # If the message has a plot and chart is enabled, display it
+                        if message["role"] == "assistant" and 'plot' in message and show_chart:
                             try:
                                 # Use plotly.io to parse the JSON figure
                                 plot_fig = pio.from_json(message['plot'])
@@ -265,11 +269,21 @@ def main():
                                     st.warning(f"Could not display table: {table_error}")
                                     response += "**Data Results:** Unable to display table\n\n"
 
-                            # Store the plot in the message
+                            # Store the plot in the message only if chart is enabled and fig is not None
                             if show_chart and fig is not None:
                                 # Use plotly.io to convert figure to JSON
-                                assistant_message['plot'] = pio.to_json(fig, remove_uids=True)
+                                plot_json = pio.to_json(fig, remove_uids=True)
+                                assistant_message['plot'] = plot_json
+                                st.session_state.last_plot = plot_json
                                 st.plotly_chart(fig, use_container_width=True)
+                            else:
+                                # If chart is disabled or fig is None, use the last successful plot if available
+                                if st.session_state.last_plot and show_chart:
+                                    try:
+                                        last_plot_fig = pio.from_json(st.session_state.last_plot)
+                                        st.plotly_chart(last_plot_fig, use_container_width=True)
+                                    except Exception as e:
+                                        st.warning(f"Could not render previous plot: {e}")
 
                             # Generate follow-up questions
                             similar_questions = generate_followup_questions_cached(
@@ -291,8 +305,8 @@ def main():
                             st.error(error_message)
                             st.session_state.messages.append({"role": "assistant", "content": error_message})
 
-    else:
-        st.info("Please provide both OpenAI API Key and upload a CSV file to enable chat.")
+        else:
+            st.info("Please provide both OpenAI API Key and upload a CSV file to enable chat.")
 
 if __name__ == "__main__":
     main()
