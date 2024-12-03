@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 temp_talk2table/
+chromadb.sqlite3
 # C extensions
 *.so
 

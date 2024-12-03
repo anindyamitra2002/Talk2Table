@@ -145,15 +145,15 @@ def main():
     st.sidebar.header("OpenAI Configuration")
     openai_api_key = st.sidebar.text_input(label="OpenAI API KEY", placeholder="sk-...", type="password")
     
-    # Add a button to clear existing databases
-    if st.sidebar.button("Clear Temp Databases"):
-        clear_existing_databases()
+    # # Add a button to clear existing databases
+    # if st.sidebar.button("Clear Temp Databases"):
+    #     clear_existing_databases()
     
     # Configuration checkboxes
-    show_sql = st.sidebar.checkbox("Show SQL Query", value=True)
+    show_sql = st.sidebar.checkbox("Show SQL Query", value=False)
     show_table = st.sidebar.checkbox("Show Data Table", value=True)
     show_chart = st.sidebar.checkbox("Show Plotly Chart", value=True)
-    show_summary = st.sidebar.checkbox("Show Summary", value=False)
+    show_summary = st.sidebar.checkbox("Show Summary", value=True)
 
     # Initialize or reset session state
     if 'messages' not in st.session_state:
